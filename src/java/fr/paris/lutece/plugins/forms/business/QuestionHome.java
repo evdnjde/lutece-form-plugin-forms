@@ -91,6 +91,17 @@ public final class QuestionHome
     }
 
     /**
+     * Remove in cache the question which is specified in parameter
+     *
+     * @param question
+     *            The instance of the Question to remove
+     */
+    public static void removeInCache( Question question )
+    {
+        _cache.removeKey( _cache.getQuestionCacheKey( question.getId( ) ) );
+    }
+
+    /**
      * Remove the question whose identifier is specified in parameter. The associated Entry and EntryResponses will be also deleted
      * 
      * @param nKey

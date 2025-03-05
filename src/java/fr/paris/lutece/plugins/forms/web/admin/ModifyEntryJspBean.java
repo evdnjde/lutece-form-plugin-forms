@@ -379,7 +379,7 @@ public class ModifyEntryJspBean extends AbstractJspBean
             }
 
             FieldHome.update( field );
-
+            QuestionHome.removeInCache( _question );
         }
         else
         {
