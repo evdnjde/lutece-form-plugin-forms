@@ -554,4 +554,27 @@ public class CompositeGroupDisplay implements ICompositeDisplay
         _listChildren.addAll( listChildrenFiltered );
         return this;
     }
+
+    @Override
+    public ICompositeDisplay filterFromListQuestion( List<Question> listQuestion )
+    {
+        List<ICompositeDisplay> listChildrenFiltered = new ArrayList<>( );
+
+        for ( ICompositeDisplay child : _listChildren )
+        {
+            ICompositeDisplay newChild = child.filterFromListQuestion( listQuestion );
+            if ( newChild != null )
+            {
+                listChildrenFiltered.add( newChild );
+            }
+        }
+        if ( listChildrenFiltered.isEmpty( ) )
+        {
+            return null;
+        }
+        _listChildren.clear( );
+        _listChildren.addAll( listChildrenFiltered );
+        return this;
+    }
+
 }
