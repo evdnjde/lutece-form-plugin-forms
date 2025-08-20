@@ -1,12 +1,27 @@
+<#assign indexGroup=-1>
+<#assign indexIteration=0>
 <#if visible>
-	<fieldset  <#if id_display??>class="display_field_${id_display}"</#if>>
-	    <legend>
-	        ${group.title}
-	    </legend>
-	    <div class="form-group-value-content">
-			<#list groupContent as childrenHtml>
+<div class="row step-group">
+	<div class="col-12">
+	<hr>
+	<#list groupContent as childrenHtml>
+		<#assign indexIteration = ( childrenHtml?index / nbBaseChildren )?int />
+		<#assign nbTotalIteration = ( groupContent?size / nbBaseChildren )?int />
+		<#if indexGroup !=  indexIteration && indexGroup !=-1 >
+			<hr>
+		</#if>
+		<#if indexGroup != indexIteration>
+			<fieldset class="<#if id_display??> display_field_${id_display} d-none</#if>" style="position:relative;">
+				<legend>${group.title} <#if indexIteration &gt; 0>(${indexIteration+1})</#if>
+				<#if group.description!=''>
+					<div class="helpBox">${group.description}</div>
+				</#if>
+				<#assign indexGroup=indexIteration>
+				</legend>
+		</#if>
 				${childrenHtml}
-			</#list>
-	    </div>
-	</fieldset>
+			</fieldset>
+		</#list>
+	</div>
+</div>
 </#if>

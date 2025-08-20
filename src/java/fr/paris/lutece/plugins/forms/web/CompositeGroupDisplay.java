@@ -558,22 +558,28 @@ public class CompositeGroupDisplay implements ICompositeDisplay
     @Override
     public ICompositeDisplay filterFromListQuestion( List<Question> listQuestion )
     {
-        List<ICompositeDisplay> listChildrenFiltered = new ArrayList<>( );
+        boolean allReadOnly = true;
+
+        Map<String,Object> modelReadOnly = new HashMap<>();
+        modelReadOnly.put("readonly", true);
 
         for ( ICompositeDisplay child : _listChildren )
         {
             ICompositeDisplay newChild = child.filterFromListQuestion( listQuestion );
-            if ( newChild != null )
+            if ( newChild == null )
             {
-                listChildrenFiltered.add( newChild );
+                child.addModel( modelReadOnly );
+            }
+            else
+            {
+                allReadOnly = false;
             }
         }
-        if ( listChildrenFiltered.isEmpty( ) )
+        if ( allReadOnly )
         {
-            return null;
+            _listChildren.clear( );
         }
-        _listChildren.clear( );
-        _listChildren.addAll( listChildrenFiltered );
+
         return this;
     }
 

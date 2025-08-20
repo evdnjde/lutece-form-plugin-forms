@@ -192,6 +192,20 @@ public class CompositeQuestionDisplay implements ICompositeDisplay
     @Override
     public String getCompositeHtml( HttpServletRequest request, List<FormQuestionResponse> listFormQuestionResponse, Locale locale, DisplayType displayType )
     {
+        if (Boolean.TRUE.equals(_model.get("readonly")))
+        {
+            if(displayType.isFront())
+            {
+                displayType = DisplayType.READONLY_FRONTOFFICE;
+                _question.setIsVisible( true );
+            }
+            else
+            {
+                displayType = DisplayType.READONLY_BACKOFFICE;
+                _question.setIsVisible( true );
+            }
+        }
+
         String strQuestionTemplate = StringUtils.EMPTY;
         Map<Integer, String> fieldsList = new HashMap<>( );
         Entry entry = _question.getEntry( );
