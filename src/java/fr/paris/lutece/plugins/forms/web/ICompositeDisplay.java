@@ -159,4 +159,12 @@ public interface ICompositeDisplay
      * @return composite display
      */
     ICompositeDisplay filterFromListQuestion( List<Question> listQuestion );
+
+    /**
+     * Return the IterationNumber of the question
+     *
+     * @return IterationNumber
+     */
+    Integer getIterationNumber();
+
 }
